@@ -9,3 +9,6 @@ pkg/
 /.bundle
 .rvmrc
 coverage
+*.gem
+.ruby-gemset
+.ruby-version
