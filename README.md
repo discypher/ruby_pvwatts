@@ -7,3 +7,5 @@ Additionally, you'll need to include a hash of at least the required parameters.
 See http://developer.nrel.gov/docs/solar/pvwatts-v5/ for more information.
 
 This is a work in progress and will have multiple updates coming soon.
+
+[Licensed under the MIT license](http://www.opensource.org/licenses/mit-license.php)
