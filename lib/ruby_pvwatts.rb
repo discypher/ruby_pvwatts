@@ -57,8 +57,10 @@ class RubyPvWatts
   # [:+gcr+:] Ground coverage ratio
   # [:+inv_eff+:] Inverter efficiency at rated power.
   #
-  def initialize(api_key, opts)
-    options = { query: { api_key: api_key }.merge(opts) }
+  def initialize(opts)
+    error_message = check_required_params(opts)
+    raise ArgumentError.new(error_message) if error_message
+    options = { query: opts }
     @response = self.class.get('/api/pvwatts/v5.json', options)
   end
 
@@ -83,42 +85,42 @@ class RubyPvWatts
   end
 
   def ac
-    return nil unless @response['inputs']['timeframe'] == 'hourly'
+    return nil unless hourly
     @response['outputs']['ac']
   end
 
   def poa
-    return nil unless @response['inputs']['timeframe'] == 'hourly'
+    return nil unless hourly
     @response['outputs']['poa']
   end
 
   def dn
-    return nil unless @response['inputs']['timeframe'] == 'hourly'
+    return nil unless hourly
     @response['outputs']['dn']
   end
 
   def dc
-    return nil unless @response['inputs']['timeframe'] == 'hourly'
+    return nil unless hourly
     @response['outputs']['dc']
   end
 
   def df
-    return nil unless @response['inputs']['timeframe'] == 'hourly'
+    return nil unless hourly
     @response['outputs']['df']
   end
 
   def tamb
-    return nil unless @response['inputs']['timeframe'] == 'hourly'
+    return nil unless hourly
     @response['outputs']['tamb']
   end
 
   def tcell
-    return nil unless @response['inputs']['timeframe'] == 'hourly'
+    return nil unless hourly
     @response['outputs']['tcell']
   end
 
   def wspd
-    return nil unless @response['inputs']['timeframe'] == 'hourly'
+    return nil unless hourly
     @response['outputs']['wspd']
   end
 
@@ -129,4 +131,22 @@ class RubyPvWatts
   alias_method :hourly_ambient_temperature, :tamb
   alias_method :hourly_module_temperature, :tcell
   alias_method :hourly_windspeed, :wspd
+
+  private
+
+  def check_required_params(opts)
+    missing = []
+    missing << :api_key unless opts[:api_key]
+    missing << :system_capacity unless opts[:system_capacity]
+    missing << :losses unless opts[:losses]
+    missing << :module_type unless opts[:module_type]
+    missing << :array_type unless opts[:array_type]
+    missing << :tilt unless opts[:tilt]
+    missing << :azimuth unless opts[:azimuth]
+    "Required parameters missing: #{missing.join(', ')}" unless missing.empty?
+  end
+
+  def hourly
+    @response['inputs']['timeframe'] == 'hourly'
+  end
 end
