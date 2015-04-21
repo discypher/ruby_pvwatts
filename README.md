@@ -7,6 +7,7 @@ Additionally, you'll need to include a hash of at least the required parameters.
 See http://developer.nrel.gov/docs/solar/pvwatts-v5/ for more information.
 
 Usage:
+
     require 'ruby_pvwatts'
 
     result = RubyPvWatts.new(
