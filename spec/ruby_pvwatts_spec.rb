@@ -107,6 +107,20 @@ describe RubyPvWatts do
 
     subject { @ruby_pvwatts }
 
+    it { should respond_to :version }
+    it { should respond_to :errors }
+    it { should respond_to :warnings }
+    it { should respond_to :city }
+    it { should respond_to :state }
+    it { should respond_to :lat }
+    it { should respond_to :long }
+    it { should respond_to :elev }
+    it { should respond_to :location }
+    it { should respond_to :timezone }
+    it { should respond_to :solar_resource_file }
+    it { should respond_to :distance }
+    it { should respond_to :meters_from_station }
+
     it { should respond_to :poa_monthly }
     it { should respond_to :solrad_monthly }
     it { should respond_to :solrad_annual }
@@ -143,6 +157,14 @@ describe RubyPvWatts do
 
     it 'should not report hourly values' do
       expect(@ruby_pvwatts.wspd).to be_nil
+    end
+
+    it 'should report the correct version' do
+      expect(@ruby_pvwatts.version).to eq('1.0.2')
+    end
+
+    it 'should have the right city' do
+      expect(@ruby_pvwatts.city).to eq('HONOLULU')
     end
   end
 

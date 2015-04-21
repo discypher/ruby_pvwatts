@@ -64,6 +64,54 @@ class RubyPvWatts
     @response = self.class.get('/api/pvwatts/v5.json', options)
   end
 
+  def version
+    @response['version']
+  end
+
+  def errors
+    @response['errors']
+  end
+
+  def warnings
+    @response['warnings']
+  end
+
+  def city
+    @response['station_info']['city']
+  end
+
+  def lat
+    @response['station_info']['lat']
+  end
+
+  def long
+    @response['station_info']['lon']
+  end
+
+  def elev
+    @response['station_info']['elev']
+  end
+
+  def timezone
+    @response['station_info']['tz']
+  end
+
+  def location
+    @response['station_info']['location']
+  end
+
+  def state
+    @response['station_info']['state']
+  end
+
+  def solar_resource_file
+    @response['station_info']['solar_resource_file']
+  end
+
+  def meters_from_station
+    @response['station_info']['distance']
+  end
+
   def poa_monthly
     @response['outputs']['poa_monthly']
   end
@@ -131,6 +179,7 @@ class RubyPvWatts
   alias_method :hourly_ambient_temperature, :tamb
   alias_method :hourly_module_temperature, :tcell
   alias_method :hourly_windspeed, :wspd
+  alias_method :distance, :meters_from_station
 
   private
 
